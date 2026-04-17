@@ -74,7 +74,7 @@ Default URLs:
 Create a **Web Service** from this GitHub repo:
 
 - **Root Directory**: `backend`
-- **Build Command**: `npm install && npm run build`
+- **Build Command**: `cd .. && npm install --include=optional && npm run build --prefix backend` (same idea as `render.yaml`: install from monorepo root)
 - **Start Command**: `npm start`
 - **Environment variables**
   - `CORS_ORIGIN`: `*` (simple demo) or your frontend origin (recommended later)
@@ -91,12 +91,23 @@ Import this GitHub repo into Vercel:
 - **Environment variables**
   - `NEXT_PUBLIC_API_BASE_URL=https://quran-web-app-5wok.onrender.com`
 
+`frontend/vercel.json` runs **`cd .. && npm install --include=optional`** so dependencies install from the **monorepo root** (single `package-lock.json`). That avoids npm workspace / optional-dependency bugs on Linux (Tailwind v4 **Oxide** + **lightningcss** native bindings).
+
+## Monorepo & lockfiles
+
+- Use **only the root** `package-lock.json`. Do not commit separate `package-lock.json` files under `frontend/` or `backend/` (they caused conflicting installs and missing Linux optional packages on Vercel).
+
+## CI (Linux build check)
+
+GitHub Actions workflow [`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs `npm install` at the root and builds **backend + frontend** on **Ubuntu**, matching Vercel’s Linux environment.
+
 ## Data source / license
 
 The backend uses the `quran-json@3.1.2` dataset (**CC-BY-SA 4.0**).
 
 ## Notes
 
-- The repo root includes an **`.npmrc`** with `legacy-peer-deps=true` so `npm install` at the root succeeds with the frontend’s dependency tree (npm workspaces).
+- The repo root includes an **`.npmrc`** with `legacy-peer-deps=true` so `npm install` at the root succeeds with the frontend’s dependency tree (npm workspaces). **`frontend/.npmrc`** repeats this for any install run only inside `frontend/`.
+- **Tailwind CSS v4** pulls native optional packages (`@tailwindcss/oxide-*`, `lightningcss-*`). **`frontend/package.json`** lists Linux targets explicitly under `optionalDependencies` so Vercel (Linux) always resolves them even when npm skips optional installs ([npm#4828](https://github.com/npm/cli/issues/4828)).
 - This repo also includes **`render.yaml`** as a reference for deploying the backend to Render (optional; you can configure the service manually instead).
 

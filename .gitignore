@@ -24,3 +24,6 @@ Thumbs.db
 **/.idea/
 **/.vscode/
 
+# Windows: `nul` is a reserved device name; a mistaken `> nul` in the repo root can create this file and Git cannot index it.
+/nul
+

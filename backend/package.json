@@ -11,8 +11,8 @@
     "prestart": "npm run build",
     "start": "node ./dist/src/server.js",
     "inspect:quran-json": "node ./dist/scripts/inspect-quran-json.js",
-    "build": "tsc -p tsconfig.json",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "build": "node ../node_modules/typescript/bin/tsc -p tsconfig.json",
+    "typecheck": "node ../node_modules/typescript/bin/tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.2",

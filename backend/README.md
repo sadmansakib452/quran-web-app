@@ -10,9 +10,13 @@ This service provides Quran data + search endpoints consumed by the Next.js fron
 
 ## Setup
 
+From the **repository root** (installs all workspaces):
+
 ```bash
 npm install
 ```
+
+Do not rely on a separate `package-lock.json` inside `backend/`; this monorepo uses one lockfile at the root.
 
 ## Environment variables
 

@@ -15,7 +15,8 @@
     "start": "npm run build && concurrently -n backend,frontend -c auto \"npm --prefix backend start\" \"npm --prefix frontend start\""
   },
   "devDependencies": {
-    "concurrently": "^9.2.1"
+    "concurrently": "^9.2.1",
+    "typescript": "^5.9.3"
   }
 }
 
