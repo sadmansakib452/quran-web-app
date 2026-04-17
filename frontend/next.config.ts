@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
   },
     
     turbopack: {
+      // Monorepo: ensure Turbopack uses the `frontend/` folder as root
+      // to avoid lockfile/workspace root inference warnings.
+      root: __dirname,
       rules: {
         '*.svg': {
           loaders: ['@svgr/webpack'],

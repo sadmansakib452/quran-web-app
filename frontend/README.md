@@ -1,121 +1,101 @@
-# TailAdmin Next.js - Free Next.js Tailwind Admin Dashboard Template
+# Frontend (Next.js)
 
-TailAdmin is a free and open-source admin dashboard template built on **Next.js and Tailwind CSS** providing developers with everything they need to create a feature-rich and data-driven: back-end, dashboard, or admin panel solution for any sort of web project.
+This is the **Next.js (App Router)** frontend for the Quran Web Application.
 
-![TailAdmin - Next.js Dashboard Preview](./banner.png)
+It consumes the backend API defined in [`backend/docs/api-contract.md`](../backend/docs/api-contract.md).
 
-With TailAdmin Next.js, you get access to all the necessary dashboard UI components, elements, and pages required to build a high-quality and complete dashboard or admin panel. Whether you're building a dashboard or admin panel for a complex web application or a simple website.
+## Features
 
-TailAdmin utilizes the powerful features of **Next.js 16** and common features of Next.js such as server-side rendering (SSR), static site generation (SSG), and seamless API route integration. Combined with the advancements of **React 19** and the robustness of **TypeScript**, TailAdmin is the perfect solution to help get your project up and running quickly.
+- Surah list (114 surahs)
+- Surah reader (Ayahs with Arabic + translation)
+- Search (by translation text)
+- Reading settings (Arabic font selection, Arabic size, translation size) persisted to `localStorage`
 
-## Overview
+## Tech
 
-TailAdmin provides essential UI components and layouts for building feature-rich, data-driven admin dashboards and control panels. It's built on:
+- Next.js (SSG where applicable)
+- React
+- TypeScript
+- Tailwind CSS
 
-* Next.js 16.x
-* React 19
-* TypeScript
-* Tailwind CSS V4
+## Run locally
 
-### Quick Links
-
-* [✨ Visit Website](https://tailadmin.com)
-* [📄 Documentation](https://tailadmin.com/docs)
-* [⬇️ Download](https://tailadmin.com/download)
-* [🖌️ Figma Design File (Community Edition)](https://www.figma.com/community/file/1463141366275764364)
-* [⚡ Get PRO Version](https://tailadmin.com/pricing)
-
-### Demos
-
-* [Free Version](https://nextjs-free-demo.tailadmin.com)
-* [Pro Version](https://nextjs-demo.tailadmin.com)
-
-### Other Versions
-
-- [Next.js Version](https://github.com/TailAdmin/free-nextjs-admin-dashboard)
-- [React.js Version](https://github.com/TailAdmin/free-react-tailwind-admin-dashboard)
-- [Vue.js Version](https://github.com/TailAdmin/vue-tailwind-admin-dashboard)
-- [Angular Version](https://github.com/TailAdmin/free-angular-tailwind-dashboard)
-- [Laravel Version](https://github.com/TailAdmin/tailadmin-laravel)
-
-## Installation
-
-### Prerequisites
-
-To get started with TailAdmin, ensure you have the following prerequisites installed and set up:
-
-* Node.js 18.x or later (recommended to use Node.js 20.x or later)
-
-### Cloning the Repository
-
-Clone the repository using the following command:
+From the repo root (recommended):
 
 ```bash
-git clone https://github.com/TailAdmin/free-nextjs-admin-dashboard.git
+npm install
+npm run dev
 ```
 
-> Windows Users: place the repository near the root of your drive if you face issues while cloning.
+Or from this folder:
 
-1. Install dependencies:
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
+Frontend URL: `http://localhost:3000`
 
-   > Use `--legacy-peer-deps` flag if you face peer-dependency error during installation.
+## Environment variables
 
-2. Start the development server:
+- `NEXT_PUBLIC_API_BASE_URL` (required in production)
+  - Local: `http://localhost:8787`
+  - Render: `https://quran-web-app-5wok.onrender.com`
 
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
+Notes:
 
-## Components
+- In local development, the app can fall back to `http://localhost:8787` if the live server is unreachable.
+- In production (Vercel), you must set `NEXT_PUBLIC_API_BASE_URL`.
 
-TailAdmin is a pre-designed starting point for building a web-based dashboard using Next.js and Tailwind CSS. The template includes:
+## Routes
 
-* Sophisticated and accessible sidebar
-* Data visualization components
-* Profile management and custom 404 page
-* Tables and Charts(Line and Bar)
-* Authentication forms and input elements
-* Alerts, Dropdowns, Modals, Buttons and more
-* Can't forget Dark Mode 🕶️
+- `/` – Surah list (static generation)
+- `/surah/[id]` – Surah reader (SSG via `generateStaticParams()`)
+- `/search?q=...` – Search results (server-rendered on demand)
 
-All components are built with React and styled using Tailwind CSS for easy customization.
+## Key folders (what to look at)
 
-## Feature Comparison
+- `src/app/(admin)/`
+  - Pages/layout for the Quran app shell (header + overlays)
+- `src/features/quran/`
+  - `api/` – API client + types matching backend contract
+  - `components/` – Surah list, Ayah reader components
+- `src/components/quran/`
+  - `SettingsPanel` (right slide-over)
+  - `SearchOverlay`
+- `src/context/`
+  - `ReadingSettingsContext` – persists settings and applies CSS vars
+- `public/fonts/`
+  - Arabic fonts used by settings
+- `public/images/`
+  - App assets (logo, surah number badge)
 
-### Free Version
+## Core logic (high level)
 
-* 1 Unique Dashboard
-* 30+ dashboard components
-* 50+ UI elements
-* Basic Figma design files
-* Community support
+### Data fetching
 
-### Pro Version
+- API calls go through `src/features/quran/api/client.ts`
+- Base URL is resolved by `src/lib/env.ts` using `NEXT_PUBLIC_API_BASE_URL`
 
-* 7 Unique Dashboards: Analytics, Ecommerce, Marketing, CRM, SaaS, Stocks, Logistics (more coming soon)
-* 500+ dashboard components and UI elements
-* Complete Figma design file
-* Email support
+### SSG vs dynamic rendering
 
-To learn more about pro version features and pricing, visit our [pricing page](https://tailadmin.com/pricing).
+- Surah list (`/`) and surah reader (`/surah/[id]`) are generated statically where possible.
+- Search (`/search`) is rendered dynamically because it depends on query params.
 
-## Changelog
+### Reading settings
 
-### Version 2.2.3 - [March 15, 2026]
+- Settings are stored in `localStorage` and mapped to CSS variables:
+  - `--q-arabic-font`
+  - `--q-arabic-size`
+  - `--q-translation-size`
 
-* update ESLint configuration and dependencies; upgrade Next.js to version 16.1.6
+## Deploy to Vercel (monorepo)
 
-### Version 2.2.2 - [December 30, 2025]
+In Vercel:
 
-* Fixed date picker positioning and functionality in Statistics Chart.
+- **Root Directory**: `frontend`
+- **Env var**: `NEXT_PUBLIC_API_BASE_URL=https://quran-web-app-5wok.onrender.com`
 
 
 ### Version 2.1.0 - [November 15, 2025]
