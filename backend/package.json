@@ -1,0 +1,27 @@
+{
+  "name": "quran-backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "npm run build && node --watch ./dist/src/server.js",
+    "prestart": "npm run build",
+    "start": "node ./dist/src/server.js",
+    "inspect:quran-json": "node ./dist/scripts/inspect-quran-json.js",
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.19.2",
+    "hono": "^4.9.5",
+    "quran-json": "3.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.25",
+    "typescript": "^5.9.3"
+  }
+}
+
