@@ -24,7 +24,7 @@ export function SurahRow({ surah }: { surah: SurahSummary }) {
 
       <div className="min-w-0 flex-1">
         <div
-          className="truncate text-base font-semibold text-gray-900 dark:text-white/90"
+          className="truncate text-lg font-semibold text-gray-900 dark:text-white/90 sm:text-xl"
           style={{ fontFamily: "var(--q-arabic-font)" }}
         >
           {surah.nameAr}

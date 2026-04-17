@@ -35,7 +35,7 @@ export function SurahCard({ surah }: { surah: SurahSummary }) {
 
         <div className="shrink-0 text-right">
           <div
-            className="text-lg font-semibold text-gray-900 dark:text-white/90"
+            className="text-xl font-semibold text-gray-900 dark:text-white/90"
             style={{ fontFamily: "var(--q-arabic-font)" }}
           >
             {surah.nameAr}

@@ -4,7 +4,6 @@ import React from "react";
 import { QuranHeader } from "@/layout/QuranHeader";
 import { SettingsPanel } from "@/components/quran/SettingsPanel";
 import { SearchOverlay } from "@/components/quran/SearchOverlay";
-import { SurahViewModeProvider } from "@/context/SurahViewModeContext";
 
 export default function AdminLayout({
   children,
@@ -16,15 +15,13 @@ export default function AdminLayout({
 
   return (
     <div className="min-h-screen bg-(--reader-bg)">
-      <SurahViewModeProvider>
-        <main className="p-4 mx-auto max-w-(--breakpoint-2xl) space-y-4 md:p-6">
-          <QuranHeader
-            onOpenSettings={() => setIsSettingsOpen(true)}
-            onOpenSearch={() => setIsSearchOpen(true)}
-          />
-          {children}
-        </main>
-      </SurahViewModeProvider>
+      <main className="p-4 mx-auto max-w-(--breakpoint-2xl) space-y-4 md:p-6">
+        <QuranHeader
+          onOpenSettings={() => setIsSettingsOpen(true)}
+          onOpenSearch={() => setIsSearchOpen(true)}
+        />
+        {children}
+      </main>
 
       <SettingsPanel
         open={isSettingsOpen}
