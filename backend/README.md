@@ -2,6 +2,8 @@
 
 Node.js API server built with **Hono**.
 
+This service provides Quran data + search endpoints consumed by the Next.js frontend.
+
 ## Requirements
 
 - Node.js 20+
@@ -36,6 +38,25 @@ npm run dev
 - `GET /search?q=...`
 
 Full contract: see `docs/api-contract.md`.
+
+## Example requests
+
+Assuming `http://localhost:8787`:
+
+```bash
+curl http://localhost:8787/health
+curl http://localhost:8787/surahs
+curl http://localhost:8787/surahs/1
+curl http://localhost:8787/surahs/1/ayahs
+curl "http://localhost:8787/search?q=obedience&limit=10&offset=0"
+```
+
+## How it works (high level)
+
+- **Dataset**: loaded from the `quran-json@3.1.2` npm package at startup.
+- **Data service**: normalizes the dataset into a consistent in-memory model for fast reads.
+- **Search**: indexes translation text in memory and returns matches with `{ highlight: { start, end } }`
+  so the frontend can emphasize the match.
 
 ## Deploy checklist (backend)
 
