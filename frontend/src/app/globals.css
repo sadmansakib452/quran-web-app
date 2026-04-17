@@ -2,6 +2,108 @@
 
 @custom-variant dark (&:is(.dark *));
 
+:root {
+  --reader-bg: #efe3c8;
+  --reader-surface: #fffaf0;
+  --reader-border: #e6d8bb;
+
+  /* Reading settings (overridden by ReadingSettingsContext at runtime) */
+  --q-arabic-font-lateef: "Lateef", serif;
+  --q-arabic-font-harmattan: "Harmattan", sans-serif;
+  --q-arabic-font-amiri: "Amiri", serif;
+  --q-arabic-font-notoNaskhArabic: "Noto Naskh Arabic", serif;
+
+  --q-arabic-font: var(--q-arabic-font-lateef);
+  --q-arabic-size: 34px;
+  --q-translation-size: 14px;
+}
+
+.dark:root {
+  --reader-bg: #0b1220;
+  --reader-surface: #0f172a;
+  --reader-border: rgba(255, 255, 255, 0.08);
+}
+
+@font-face {
+  font-family: "Lateef";
+  src: url("/fonts/Lateef-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Harmattan";
+  src: url("/fonts/Harmattan-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Amiri";
+  src: url("/fonts/Amiri-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Amiri";
+  src: url("/fonts/Amiri-Italic.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Amiri";
+  src: url("/fonts/Amiri-Bold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Amiri";
+  src: url("/fonts/Amiri-BoldItalic.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Naskh Arabic";
+  src: url("/fonts/NotoNaskhArabic-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Naskh Arabic";
+  src: url("/fonts/NotoNaskhArabic-Medium.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Naskh Arabic";
+  src: url("/fonts/NotoNaskhArabic-SemiBold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Naskh Arabic";
+  src: url("/fonts/NotoNaskhArabic-Bold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
 @theme {
   --font-*: initial;
   --font-outfit: Outfit, sans-serif;
@@ -38,18 +140,18 @@
   --color-white: #ffffff;
   --color-black: #101828;
 
-  --color-brand-25: #f2f7ff;
-  --color-brand-50: #ecf3ff;
-  --color-brand-100: #dde9ff;
-  --color-brand-200: #c2d6ff;
-  --color-brand-300: #9cb9ff;
-  --color-brand-400: #7592ff;
-  --color-brand-500: #465fff;
-  --color-brand-600: #3641f5;
-  --color-brand-700: #2a31d8;
-  --color-brand-800: #252dae;
-  --color-brand-900: #262e89;
-  --color-brand-950: #161950;
+  --color-brand-25: #fffaf0;
+  --color-brand-50: #fff3d6;
+  --color-brand-100: #ffe7ad;
+  --color-brand-200: #fedb82;
+  --color-brand-300: #f6c65a;
+  --color-brand-400: #eab63f;
+  --color-brand-500: #d39a2f;
+  --color-brand-600: #b97f24;
+  --color-brand-700: #94631f;
+  --color-brand-800: #6f4a1a;
+  --color-brand-900: #4d3314;
+  --color-brand-950: #2c1d0c;
 
   --color-blue-light-25: #f5fbff;
   --color-blue-light-50: #f0f9ff;
