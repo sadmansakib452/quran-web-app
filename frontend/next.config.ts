@@ -11,9 +11,8 @@ const nextConfig: NextConfig = {
   },
     
     turbopack: {
-      // Monorepo: ensure Turbopack uses the `frontend/` folder as root
-      // to avoid lockfile/workspace root inference warnings.
-      root: __dirname,
+      // Do not set `root` here: Vercel sets `outputFileTracingRoot` for monorepos;
+      // if `turbopack.root` and that differ, Next.js warns (and may ignore one).
       rules: {
         '*.svg': {
           loaders: ['@svgr/webpack'],
