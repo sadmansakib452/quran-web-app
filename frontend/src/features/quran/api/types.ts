@@ -28,7 +28,9 @@ export type GetSurahAyahsResponse = { surah: SurahSummary; ayahs: Ayah[] };
 export type SearchHit = {
   surahId: number;
   ayahNumber: number;
+  arabic?: string;
   translation: string;
+  transliteration?: string;
   highlight: { start: number; end: number };
 };
 
