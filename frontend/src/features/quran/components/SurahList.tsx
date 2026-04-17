@@ -15,13 +15,13 @@ export function SurahList({
   return (
     <div className="rounded-2xl border border-(--reader-border) bg-(--reader-surface) shadow-theme-xs dark:bg-gray-900">
       {/* Mobile always uses list; grid only appears on >= sm */}
-      <div className="sm:hidden">
+      <div className="md:hidden">
         {surahs.map((s) => (
           <SurahRow key={s.id} surah={s} />
         ))}
       </div>
 
-      <div className="hidden sm:block">
+      <div className="hidden md:block">
         {viewMode === "list" ? (
           <div>
             {surahs.map((s) => (

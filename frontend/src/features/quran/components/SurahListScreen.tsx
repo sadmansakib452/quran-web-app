@@ -9,7 +9,7 @@ export function SurahListScreen({ surahs }: { surahs: SurahSummary[] }) {
 
   const toggleBtnClass = useMemo(() => {
     const base =
-      "inline-flex h-10 w-10 items-center justify-center rounded-lg border shadow-theme-xs";
+      "h-10 w-10 items-center justify-center rounded-lg border shadow-theme-xs";
     return viewMode === "list"
       ? `${base} border-(--reader-border) bg-(--reader-surface)/60 text-gray-700 hover:bg-(--reader-surface) dark:bg-white/3 dark:text-gray-300`
       : `${base} border-(--reader-border) bg-(--reader-surface) text-gray-900 dark:bg-gray-900 dark:text-white/90`;
@@ -30,7 +30,7 @@ export function SurahListScreen({ surahs }: { surahs: SurahSummary[] }) {
         {/* Desktop-only single toggle: shows the next view mode icon */}
         <button
           type="button"
-          className={`hidden sm:inline-flex ${toggleBtnClass}`}
+          className={`hidden md:inline-flex ${toggleBtnClass}`}
           onClick={() => setViewMode((prev) => (prev === "list" ? "grid" : "list"))}
           aria-label={viewMode === "list" ? "Switch to card view" : "Switch to list view"}
           title={viewMode === "list" ? "Cards" : "List"}
